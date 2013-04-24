@@ -1,0 +1,16 @@
+{
+    "name": "malwarebytes/zendeskbundle",
+    "type": "library",
+    "description": "Symfony Bundle to connect with Zendesk",
+    "homepage": "https://github.com/Malwarebytes/zendeskbundle",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Malwarebytes/Zendesk-API"
+        }
+    ],    
+    "require": {
+        "php": ">=5.3.0",
+        "malwarebytes/zendesk-api": "dev-master"
+    }
+}
