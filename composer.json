@@ -12,5 +12,9 @@
     "require": {
         "php": ">=5.3.0",
         "malwarebytes/zendesk-api": "dev-master"
-    }
+    },
+    "autoload": {
+        "psr-0": {"Malwarebytes\\ZendeskBundle": ""}
+    },
+    "target-dir": "Malwarebytes/ZendeskBundle"
 }
