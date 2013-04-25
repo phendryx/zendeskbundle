@@ -15,5 +15,6 @@
     },
     "autoload": {
         "psr-0": {"Malwarebytes\\ZendeskBundle": ""}
-    }
+    },
+    "target-dir": "Malwarebytes/ZendeskBundle"
 }
