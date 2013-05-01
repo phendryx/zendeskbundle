@@ -141,7 +141,7 @@ abstract class AbstractEntity implements \ArrayAccess
      */
     public function offsetSet( $offset, $value )
     {
-        if (! in_array( $offset, $this->_readOnlyFields ) ) {
+        if (! in_array( $offset, $this->_readOnlyFields) || ( $offset == 'id' && !isset($this->_fields[$offset]) ) ) {
             $this->_fields[$offset] = $value;
         }
     }

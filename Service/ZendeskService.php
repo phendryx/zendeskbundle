@@ -24,6 +24,13 @@ class ZendeskService
      */
     protected $_cache;
     
+    protected $_lastEntityId;
+
+    public function getLastEntityId()
+    {
+        return $this->_lastEntityId;
+    }
+
     public function __construct( RepositoryService $repoService )
     {
         $this->_repos = $repoService;
@@ -70,7 +77,10 @@ class ZendeskService
         $ticket['requester_id'] = $user['id'];
         $ticket['subject'] = $subject;
         $ticket['comment'] = array( 'body' => $comment );
-        $ticketRepo->save( $ticket );
+        $response = $ticketRepo->save( $ticket );
+
+        $this->_lastEntityId = $response['id'];
+
         return $this;
     }
     
