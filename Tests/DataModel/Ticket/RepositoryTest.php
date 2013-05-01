@@ -33,7 +33,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $reflBuild = new ReflectionMethod( 'Malwarebytes\ZendeskBundle\DataModel\Ticket\Repository', '_buildFromResponse' );
         $reflBuild->setAccessible( true );
         
-        $response = array( 'ticket' => array( 'foo' => 'bar' ) );
+        $response = array( 'ticket' => array( 'id' => '123', 'foo' => 'bar' ) );
         
         $entities = $reflBuild->invoke( $this->repo, $response );
         $this->assertEquals(

@@ -136,12 +136,13 @@ class ZendeskServiceTest extends \PHPUnit_Framework_TestCase
         
         $mockTicket = $this->getMockBuilder( 'Malwarebytes\ZendeskBundle\DataModel\Ticket\Entity' )
                            ->disableOriginalConstructor()
-                           ->setMethods( array( 'offsetSet' ) )
+                           ->setMethods( array( 'offsetSet', 'offsetGet' ) )
                            ->getMock();
         
         $service = $this->_getServiceMock( array( 'getById' ) );
         
         $userId = 123;
+        $ticketId = 999;
         $subject = 'drake is too damn soft';
         $comment = 'aubrey graham';
         
@@ -171,22 +172,34 @@ class ZendeskServiceTest extends \PHPUnit_Framework_TestCase
         $mockTicket
             ->expects( $this->at( 0 ) )
             ->method ( 'offsetSet' )
-            ->with   ( 'requester_id', 123 )
+            ->with   ( 'id', 999 )
         ;
         $mockTicket
             ->expects( $this->at( 1 ) )
             ->method ( 'offsetSet' )
-            ->with   ( 'subject', $subject )
+            ->with   ( 'requester_id', 123 )
         ;
         $mockTicket
             ->expects( $this->at( 2 ) )
             ->method ( 'offsetSet' )
+            ->with   ( 'subject', $subject )
+        ;
+        $mockTicket
+            ->expects( $this->at( 3 ) )
+            ->method ( 'offsetSet' )
             ->with   ( 'comment', array( 'body' => $comment ) )
         ;
+        $mockTicket['id'] = $ticketId;
         $mockTicketRepo
             ->expects( $this->once() )
             ->method ( 'save' )
             ->with   ( $mockTicket )
+            ->will   ( $this->returnValue( $mockTicket ) )
+        ;
+        $mockTicket
+            ->expects( $this->once() )
+            ->method ( 'offsetGet' )
+            ->with   ( 'id' )
         ;
         $this->assertEquals(
                 $service,

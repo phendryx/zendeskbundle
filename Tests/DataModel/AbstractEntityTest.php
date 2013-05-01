@@ -69,9 +69,14 @@ class AbstractEntityTest extends \PHPUnit_Framework_TestCase
         $entity = $this->entity->setMethods( array( 'offsetSet' ) )->getMockForAbstractClass();
         $fieldsRefl = new ReflectionProperty( '\Malwarebytes\ZendeskBundle\DataModel\AbstractEntity', '_fields' );
         $fieldsRefl->setAccessible( true );
-        $fields = array( 'foo' => 'bar' );
+        $fields = array( 'id' => 123, 'foo' => 'bar' );
         $entity
-            ->expects( $this->once() )
+            ->expects( $this->at( 0 ) )
+            ->method ( 'offsetSet' )
+            ->with   ( 'id', 123 )
+        ;
+        $entity
+            ->expects( $this->at( 1 ) )
             ->method ( 'offsetSet' )
             ->with   ( 'foo', 'bar' )
         ;
